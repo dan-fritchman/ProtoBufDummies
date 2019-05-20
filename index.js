@@ -2,47 +2,57 @@
 var protobuf = require("protobufjs");
 
 
-const AddressBook = (async function (){ 
-    return await protobuf.load("addressbook.proto", function(err, root) {
-    if (err)
-        throw err;
- 
-    // Obtain a message type
-    var AddressBook = root.lookupType("tutorial.AddressBook");
-    return AddressBook; 
- 
-    // Exemplary payload
-    //var payload = { awesomeField: "AwesomeString" };
- 
+const stuff = root => {
+    const PhoneType = root.lookupEnum("tutorial.PhoneType");
+    const AddressBook = root.lookupType("tutorial.AddressBook");
+    const PhoneNumber = root.lookupType("tutorial.PhoneNumber");
+    
+    let payload = {
+        type: PhoneType.MOBILE,
+        number: "123456789"
+    };
+
     // Verify the payload if necessary (i.e. when possibly incomplete or invalid)
-    //var errMsg = AwesomeMessage.verify(payload);
-    //if (errMsg)
-        //throw Error(errMsg);
- 
+    var errMsg = PhoneNumber.verify(payload);
+    if (errMsg)
+        throw Error(errMsg);
+
+        payload = {
+            bad:3
+        };
+    
+    var errMsg2 = PhoneNumber.verify({number:null});
+    console.log(errMsg2);
+    if (errMsg2)
+        throw Error(errMsg2);
+    
+            
+
     // Create a new message
-    //var message = AwesomeMessage.create(payload); 
     // or use .fromObject if conversion is necessary
- 
+    const message = PhoneNumber.create(payload); 
+    console.log(message);
+    
+
     // Encode a message to an Uint8Array (browser) or Buffer (node)
-    //var buffer = AwesomeMessage.encode(message).finish();
+    var buffer = PhoneNumber.encode(message).finish();
     // ... do something with buffer
- 
+    console.log(buffer);
+
     // Decode an Uint8Array (browser) or Buffer (node) to a message
-    //var message = AwesomeMessage.decode(buffer);
+    const decodedMessage = PhoneNumber.decode(buffer);
     // ... do something with message
- 
-    // If the application uses length-delimited buffers, 
-    // there is also encodeDelimited and decodeDelimited.
- 
+    console.log(decodedMessage);
+
     // Maybe convert the message back to a plain object
-    //var object = AwesomeMessage.toObject(message, {
-        //longs: String,
-        //enums: String,
-        //bytes: String,
-        // see ConversionOptions
-    //});
-})})();
+    const decodedObject = PhoneNumber.toObject(message, {
+        longs: Number,
+        enums: Number,
+        bytes: String,
+    });
+    console.log(decodedObject);
+};
 
-console.log(AddressBook);
-
-
+protobuf.load("addressbook.proto")
+    .then(stuff)
+    .catch(err => console.log(err));

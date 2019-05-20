@@ -4,6 +4,7 @@
 
 import sys
 _b=sys.version_info[0]<3 and (lambda x:x) or (lambda x:x.encode('latin1'))
+from google.protobuf.internal import enum_type_wrapper
 from google.protobuf import descriptor as _descriptor
 from google.protobuf import message as _message
 from google.protobuf import reflection as _reflection
@@ -21,15 +22,13 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   package='tutorial',
   syntax='proto3',
   serialized_options=_b('\n\024com.example.tutorialB\021AddressBookProtos\252\002$Google.Protobuf.Examples.AddressBook'),
-  serialized_pb=_b('\n\x11\x61\x64\x64ressbook.proto\x12\x08tutorial\x1a\x1fgoogle/protobuf/timestamp.proto\"\x87\x02\n\x06Person\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\n\n\x02id\x18\x02 \x01(\x05\x12\r\n\x05\x65mail\x18\x03 \x01(\t\x12,\n\x06phones\x18\x04 \x03(\x0b\x32\x1c.tutorial.Person.PhoneNumber\x12\x30\n\x0clast_updated\x18\x05 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x1aG\n\x0bPhoneNumber\x12\x0e\n\x06number\x18\x01 \x01(\t\x12(\n\x04type\x18\x02 \x01(\x0e\x32\x1a.tutorial.Person.PhoneType\"+\n\tPhoneType\x12\n\n\x06MOBILE\x10\x00\x12\x08\n\x04HOME\x10\x01\x12\x08\n\x04WORK\x10\x02\"/\n\x0b\x41\x64\x64ressBook\x12 \n\x06people\x18\x01 \x03(\x0b\x32\x10.tutorial.PersonBP\n\x14\x63om.example.tutorialB\x11\x41\x64\x64ressBookProtos\xaa\x02$Google.Protobuf.Examples.AddressBookb\x06proto3')
+  serialized_pb=_b('\n\x11\x61\x64\x64ressbook.proto\x12\x08tutorial\x1a\x1fgoogle/protobuf/timestamp.proto\"@\n\x0bPhoneNumber\x12\x0e\n\x06number\x18\x01 \x01(\t\x12!\n\x04type\x18\x02 \x01(\x0e\x32\x13.tutorial.PhoneType\"\x8a\x01\n\x06Person\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\n\n\x02id\x18\x02 \x01(\x05\x12\r\n\x05\x65mail\x18\x03 \x01(\t\x12%\n\x06phones\x18\x04 \x03(\x0b\x32\x15.tutorial.PhoneNumber\x12\x30\n\x0clast_updated\x18\x05 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\"/\n\x0b\x41\x64\x64ressBook\x12 \n\x06people\x18\x01 \x03(\x0b\x32\x10.tutorial.Person*+\n\tPhoneType\x12\n\n\x06MOBILE\x10\x00\x12\x08\n\x04HOME\x10\x01\x12\x08\n\x04WORK\x10\x02\x42P\n\x14\x63om.example.tutorialB\x11\x41\x64\x64ressBookProtos\xaa\x02$Google.Protobuf.Examples.AddressBookb\x06proto3')
   ,
   dependencies=[google_dot_protobuf_dot_timestamp__pb2.DESCRIPTOR,])
 
-
-
-_PERSON_PHONETYPE = _descriptor.EnumDescriptor(
+_PHONETYPE = _descriptor.EnumDescriptor(
   name='PhoneType',
-  full_name='tutorial.Person.PhoneType',
+  full_name='tutorial.PhoneType',
   filename=None,
   file=DESCRIPTOR,
   values=[
@@ -48,28 +47,34 @@ _PERSON_PHONETYPE = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   serialized_options=None,
-  serialized_start=285,
-  serialized_end=328,
+  serialized_start=320,
+  serialized_end=363,
 )
-_sym_db.RegisterEnumDescriptor(_PERSON_PHONETYPE)
+_sym_db.RegisterEnumDescriptor(_PHONETYPE)
+
+PhoneType = enum_type_wrapper.EnumTypeWrapper(_PHONETYPE)
+MOBILE = 0
+HOME = 1
+WORK = 2
 
 
-_PERSON_PHONENUMBER = _descriptor.Descriptor(
+
+_PHONENUMBER = _descriptor.Descriptor(
   name='PhoneNumber',
-  full_name='tutorial.Person.PhoneNumber',
+  full_name='tutorial.PhoneNumber',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='number', full_name='tutorial.Person.PhoneNumber.number', index=0,
+      name='number', full_name='tutorial.PhoneNumber.number', index=0,
       number=1, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='type', full_name='tutorial.Person.PhoneNumber.type', index=1,
+      name='type', full_name='tutorial.PhoneNumber.type', index=1,
       number=2, type=14, cpp_type=8, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
@@ -87,9 +92,10 @@ _PERSON_PHONENUMBER = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=212,
-  serialized_end=283,
+  serialized_start=64,
+  serialized_end=128,
 )
+
 
 _PERSON = _descriptor.Descriptor(
   name='Person',
@@ -136,9 +142,8 @@ _PERSON = _descriptor.Descriptor(
   ],
   extensions=[
   ],
-  nested_types=[_PERSON_PHONENUMBER, ],
+  nested_types=[],
   enum_types=[
-    _PERSON_PHONETYPE,
   ],
   serialized_options=None,
   is_extendable=False,
@@ -146,8 +151,8 @@ _PERSON = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=65,
-  serialized_end=328,
+  serialized_start=131,
+  serialized_end=269,
 )
 
 
@@ -177,34 +182,33 @@ _ADDRESSBOOK = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=330,
-  serialized_end=377,
+  serialized_start=271,
+  serialized_end=318,
 )
 
-_PERSON_PHONENUMBER.fields_by_name['type'].enum_type = _PERSON_PHONETYPE
-_PERSON_PHONENUMBER.containing_type = _PERSON
-_PERSON.fields_by_name['phones'].message_type = _PERSON_PHONENUMBER
+_PHONENUMBER.fields_by_name['type'].enum_type = _PHONETYPE
+_PERSON.fields_by_name['phones'].message_type = _PHONENUMBER
 _PERSON.fields_by_name['last_updated'].message_type = google_dot_protobuf_dot_timestamp__pb2._TIMESTAMP
-_PERSON_PHONETYPE.containing_type = _PERSON
 _ADDRESSBOOK.fields_by_name['people'].message_type = _PERSON
+DESCRIPTOR.message_types_by_name['PhoneNumber'] = _PHONENUMBER
 DESCRIPTOR.message_types_by_name['Person'] = _PERSON
 DESCRIPTOR.message_types_by_name['AddressBook'] = _ADDRESSBOOK
+DESCRIPTOR.enum_types_by_name['PhoneType'] = _PHONETYPE
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
-Person = _reflection.GeneratedProtocolMessageType('Person', (_message.Message,), dict(
+PhoneNumber = _reflection.GeneratedProtocolMessageType('PhoneNumber', (_message.Message,), dict(
+  DESCRIPTOR = _PHONENUMBER,
+  __module__ = 'addressbook_pb2'
+  # @@protoc_insertion_point(class_scope:tutorial.PhoneNumber)
+  ))
+_sym_db.RegisterMessage(PhoneNumber)
 
-  PhoneNumber = _reflection.GeneratedProtocolMessageType('PhoneNumber', (_message.Message,), dict(
-    DESCRIPTOR = _PERSON_PHONENUMBER,
-    __module__ = 'addressbook_pb2'
-    # @@protoc_insertion_point(class_scope:tutorial.Person.PhoneNumber)
-    ))
-  ,
+Person = _reflection.GeneratedProtocolMessageType('Person', (_message.Message,), dict(
   DESCRIPTOR = _PERSON,
   __module__ = 'addressbook_pb2'
   # @@protoc_insertion_point(class_scope:tutorial.Person)
   ))
 _sym_db.RegisterMessage(Person)
-_sym_db.RegisterMessage(Person.PhoneNumber)
 
 AddressBook = _reflection.GeneratedProtocolMessageType('AddressBook', (_message.Message,), dict(
   DESCRIPTOR = _ADDRESSBOOK,
