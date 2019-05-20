@@ -1,0 +1,3 @@
+
+mkdir -p cpp py js
+protoc addressbook.proto --cpp_out=cpp --python_out=py --js_out=js
