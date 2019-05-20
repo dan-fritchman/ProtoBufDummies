@@ -1,0 +1,13 @@
+{
+  "name": "protobufdummies",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "Dan Fritchman <daniel.fritchman@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "protobufjs": "^6.8.8"
+  },
+  "scripts": {
+    "start": "node index.js"
+  }
+}
